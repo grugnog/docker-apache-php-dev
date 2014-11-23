@@ -3,7 +3,6 @@ Apache PHP DEV Docker image
 
 A Docker image based on [yoshz/apache-php](https://registry.hub.docker.com/u/yoshz/apache-php/) installed with:
 
-* SSHD 1.6.6
 * Phpunit 4.3.5
 * PHP Checkstyle 1.5.5 (including standards for Drupal and Symfony2)
 * Ruby 1.9.3

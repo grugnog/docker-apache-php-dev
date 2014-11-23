@@ -1,14 +1,10 @@
 FROM yoshz/apache-php
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
-# Install xdebug, sshd, openjdk-7 and ruby
+# Install xdebug, openjdk-7 and ruby
 RUN apt-get update && \
-    apt-get -yq install php5-xdebug openssh-server openjdk-7-jre-headless ruby ruby-dev build-essential && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir /var/run/sshd
-
-# Add supervisor configuration for sshd
-ADD supervisord.conf /etc/supervisor/conf.d/sshd.conf
+    apt-get -yq install php5-xdebug openjdk-7-jre-headless ruby ruby-dev build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
 # Configure git
 RUN git config --system alias.lol "log --pretty=oneline --abbrev-commit --graph --decorate --all"
@@ -26,10 +22,5 @@ RUN composer global require phpunit/phpunit squizlabs/php_codesniffer && \
 # Install bundler
 RUN gem install rubygems-update bundler
 
-# Add entrypoint
-ADD entrypoint.sh /entrypoint.sh
-RUN chmod 0555 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
-EXPOSE 22
 CMD ["/usr/bin/supervisord"]
