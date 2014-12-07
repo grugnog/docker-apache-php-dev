@@ -13,11 +13,14 @@ RUN git config --system alias.lol "log --pretty=oneline --abbrev-commit --graph 
 RUN php5enmod xdebug
 
 # Install phpunit and phpcs
-RUN composer global require phpunit/phpunit squizlabs/php_codesniffer && \
+RUN composer global require phing/phing phpunit/phpunit squizlabs/php_codesniffer && \
     git clone  git://github.com/escapestudios/Symfony2-coding-standard.git $COMPOSER_HOME/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/Symfony2 && \
     git clone --branch 7.x-2.x http://git.drupal.org/project/coder.git /tmp/coder && \
     cp -a /tmp/coder/coder_sniffer/Drupal $COMPOSER_HOME/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/ && \
-    rm -rf /tmp/coder
+    rm -rf /tmp/coder && \
+    ln -s $COMPOSER_HOME/vendor/bin/phing /usr/local/bin/phing && \
+    ln -s $COMPOSER_HOME/vendor/bin/phpunit /usr/local/bin/phpunit && \
+    ln -s $COMPOSER_HOME/vendor/bin/phpcs /usr/local/bin/phpcs
 
 # Install bundler
 RUN gem install rubygems-update bundler
