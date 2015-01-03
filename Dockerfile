@@ -9,8 +9,12 @@ RUN apt-get update && \
 # Configure git
 RUN git config --system alias.lol "log --pretty=oneline --abbrev-commit --graph --decorate --all"
 
+# Configure php
+RUN sed -i -e 's/^display_errors.*$/display_errors = On/' /etc/php5/apache2/php.ini /etc/php5/cli/php.ini
+
 # Enable xdebug
-RUN php5enmod xdebug
+RUN echo "xdebug.max_nesting_level=500" >> /etc/php5/mods-available/xdebug.ini && \
+    php5enmod xdebug
 
 # Install phpunit and phpcs
 RUN composer global require phing/phing phpunit/phpunit squizlabs/php_codesniffer && \
