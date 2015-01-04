@@ -33,4 +33,4 @@ unset USER_PUBLIC_KEY
 unset GIT_NAME
 unset GIT_EMAIL
 
-exec "$@"
+exec /apache-run.sh

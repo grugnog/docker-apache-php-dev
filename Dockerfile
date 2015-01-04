@@ -29,8 +29,8 @@ RUN composer global require phing/phing phpunit/phpunit squizlabs/php_codesniffe
 # Install bundler
 RUN gem install rubygems-update bundler
 
-ADD run.sh /run.sh
-RUN chmod 0500 /run.sh
+# Add run script
+ADD apache-dev-run.sh /apache-dev-run.sh
+RUN chmod 0500 /apache-dev-run.sh
 
-ENTRYPOINT ["/run.sh"]
-CMD ["/usr/bin/supervisord"]
+CMD ["/apache-dev-run.sh"]
