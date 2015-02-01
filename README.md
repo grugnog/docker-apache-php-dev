@@ -11,6 +11,9 @@ A Docker image included with apache and php which can be used for development.
 * Ruby 1.9.3
 * Rubygems 2.4.5
 * Bundler 1.7.10
+* Node.js 0.10.36
+* Bower 1.3.12
+* Grunt-cli 0.1.13
 
 
 Start a new container

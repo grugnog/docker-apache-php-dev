@@ -29,8 +29,18 @@ RUN composer global require phing/phing phpunit/phpunit squizlabs/php_codesniffe
 # Install bundler
 RUN gem install rubygems-update bundler
 
+# Install nodejs
+RUN curl -sL https://deb.nodesource.com/setup | bash - && \
+    apt-get -yq install nodejs
+
+# Install bower and grunt
+RUN npm install -g bower grunt-cli
+
 # Add run script
 ADD apache-dev-run.sh /apache-dev-run.sh
 RUN chmod 0500 /apache-dev-run.sh
+
+# Expose liverefesh port
+EXPOSE 35729
 
 CMD ["/apache-dev-run.sh"]
