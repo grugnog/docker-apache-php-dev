@@ -5,12 +5,12 @@ A Docker image included with apache and php which can be used for development.
 
 * Apache and PHP (see [yoshz/apache-php](https://registry.hub.docker.com/u/yoshz/apache-php/))
 * Openjdk 7 (required when you use this image as Jenkins slave)
-* Phing 2.9.1
-* Phpunit 4.4.1
-* PHP Checkstyle 1.5.5 (including standards for Drupal and Symfony2)
+* Phing 2.10.0
+* Phpunit 4.5.0
+* PHP Code Sniffer 2.2.0 (including standards for Drupal and Symfony2)
 * Ruby 1.9.3
 * Rubygems 2.4.5
-* Bundler 1.7.10
+* Bundler 1.8.2
 * Node.js 0.10.36
 * Bower 1.3.12
 * Grunt-cli 0.1.13
@@ -21,7 +21,7 @@ Start a new container
 
 It is possible to autocreate a new system user on startup: 
 
-    docker run -p 8000:80 \
+    docker run -p 80:80 -p 2022:22 \
         -v www:/var/www \
         -e USER_CREATE=`id -un` \
         -e USER_PUBLIC_KEY=`cat ~/.ssh/id_rsa.pub` \

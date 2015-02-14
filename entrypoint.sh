@@ -2,7 +2,7 @@
 set -e
 
 if [ "$USER_CREATE" ] && ! [ -d /home/$USER_CREATE ]; then
-	useradd -m -s /bin/bash -G sudo,www-data $USER_CREATE
+	useradd -m -s /bin/bash -G www-data $USER_CREATE
 	echo "User $USER_CREATE is added"
 	if [ "$USER_PASSWORD" ]; then
 		echo "$USER_CREATE:$USER_PASSWORD" | chpasswd
@@ -23,8 +23,8 @@ if [ "$USER_CREATE" ] && ! [ -d /home/$USER_CREATE ]; then
 		echo "Git email is set to \"$GIT_EMAIL\""
 	fi
 	chown $USER_CREATE /var/www
-	echo "$USER_CREATE ALL=(root) NOPASSWD: /usr/sbin/apachectl" > /etc/sudoers.d/apachectl
-	chmod 0400 /etc/sudoers.d/apachectl
+	echo "$USER_CREATE ALL=(root) NOPASSWD: ALL" > /etc/sudoers.d/$USER_CREATE
+	chmod 0400 /etc/sudoers.d/$USER_CREATE
 fi
 
 unset USER_CREATE
@@ -33,4 +33,4 @@ unset USER_PUBLIC_KEY
 unset GIT_NAME
 unset GIT_EMAIL
 
-exec /apache-run.sh
+exec "$@"
