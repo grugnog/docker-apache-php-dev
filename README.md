@@ -34,6 +34,7 @@ The following optional environment variables are available:
 * *USER_CREATE*: Name of the user to create
 * *USER_PUBLIC_KEY*: Public key to attach to the system user
 * *USER_PASSWORD*: Password to attach to the system user
+* *USER_ID*: User id of the new user
 * *GIT_NAME*: GIT username to attach to system user
 * *GIT_EMAIL*: GIT email to attach to system user
 

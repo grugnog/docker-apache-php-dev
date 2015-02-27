@@ -2,7 +2,11 @@
 set -e
 
 if [ "$USER_CREATE" ] && ! [ -d /home/$USER_CREATE ]; then
-	useradd -m -s /bin/bash -G www-data $USER_CREATE
+	if [ "$USER_ID" ]; then
+		useradd -m -s /bin/bash -u $USER_ID -G www-data $USER_CREATE
+	else
+		useradd -m -s /bin/bash -G www-data $USER_CREATE
+	fi
 	echo "User $USER_CREATE is added"
 	if [ "$USER_PASSWORD" ]; then
 		echo "$USER_CREATE:$USER_PASSWORD" | chpasswd
