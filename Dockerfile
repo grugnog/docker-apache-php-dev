@@ -3,8 +3,7 @@ MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
 # Install supervisor, sshd, xdebug, openjdk-7 and ruby
 RUN apt-get update && \
-    apt-get -yq install supervisor openssh-server openjdk-7-jre-headless \
-                        php5-xdebug ruby ruby-dev build-essential acl graphviz && \
+    apt-get -yq install supervisor openssh-server php5-xdebug ruby ruby-dev build-essential acl graphviz && \
     mkdir -p /var/run/sshd && \
     rm -rf /var/lib/apt/lists/*
 
