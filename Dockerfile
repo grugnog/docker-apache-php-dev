@@ -3,7 +3,8 @@ MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
 # Install supervisor, sshd, xdebug, openjdk-7 and ruby
 RUN apt-get update && \
-    apt-get -yq install supervisor openssh-server php5-xdebug ruby ruby-dev build-essential acl graphviz && \
+    apt-get -yq install supervisor openssh-server php5-xdebug ruby ruby-dev build-essential \
+       acl graphviz sshpass && \
     mkdir -p /var/run/sshd && \
     rm -rf /var/lib/apt/lists/*
 
@@ -42,6 +43,10 @@ RUN export COMPOSER_HOME=/usr/local/composer && \
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod 0500 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
+
+# Add customized apache-run.sh
+ADD apache-run.sh /apache-run.sh
+RUN chmod 0500 /apache-run.sh
 
 # Add supervisor configuration
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
