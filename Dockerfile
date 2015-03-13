@@ -4,9 +4,8 @@ MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 # Install supervisor, sshd, xdebug, openjdk-7 and ruby
 RUN apt-get update && \
     apt-get -yq install supervisor openssh-server php5-xdebug ruby ruby-dev build-essential \
-       acl graphviz sshpass && \
-    mkdir -p /var/run/sshd && \
-    rm -rf /var/lib/apt/lists/*
+                        graphviz sshpass && \
+    mkdir -p /var/run/sshd
 
 # Configure git
 RUN git config --system alias.lol "log --pretty=oneline --abbrev-commit --graph --decorate --all"
@@ -39,17 +38,16 @@ RUN export COMPOSER_HOME=/usr/local/composer && \
     ln -s $COMPOSER_HOME/vendor/bin/phpunit /usr/local/bin/phpunit && \
     ln -s $COMPOSER_HOME/vendor/bin/phpcs /usr/local/bin/phpcs
 
+# Cleanup apt cache
+RUN rm -rf /var/lib/apt/lists/*
+
+# Add supervisor configuration
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 # Add entrypoint script
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod 0500 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
-# Add customized apache-run.sh
-ADD apache-run.sh /apache-run.sh
-RUN chmod 0500 /apache-run.sh
-
-# Add supervisor configuration
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Expose ssh
 EXPOSE 22
