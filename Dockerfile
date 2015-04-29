@@ -1,10 +1,10 @@
-FROM yoshz/apache-php
+FROM yoshz/apache-php:1.5
 MAINTAINER Yosh de Vos "yosh@elzorro.nl"
 
-# Install supervisor, sshd, xdebug, openjdk-7 and ruby
+# Install supervisor, sshd, xdebug, ruby and various dev tools
 RUN apt-get update && \
     apt-get -yq install supervisor openssh-server php5-xdebug ruby ruby-dev build-essential \
-                        graphviz sshpass && \
+                acl graphviz sshpass && \
     mkdir -p /var/run/sshd
 
 # Configure git
@@ -37,6 +37,14 @@ RUN export COMPOSER_HOME=/usr/local/composer && \
     ln -s $COMPOSER_HOME/vendor/bin/phing /usr/local/bin/phing && \
     ln -s $COMPOSER_HOME/vendor/bin/phpunit /usr/local/bin/phpunit && \
     ln -s $COMPOSER_HOME/vendor/bin/phpcs /usr/local/bin/phpcs
+
+# Install sfnt2woff
+RUN apt-get install -yq fontforge zlib1g-dev && \
+    wget http://people.mozilla.com/~jkew/woff/woff-code-latest.zip -P /tmp && \
+    unzip -o /tmp/woff-code-latest.zip -d /tmp/sfnt2woff && \
+    make -C /tmp/sfnt2woff/ && \
+    mv /tmp/sfnt2woff/sfnt2woff /usr/local/bin/ && \
+    rm -rf /tmp/woff-code-latest.zip /tmp/sfnt2woff
 
 # Cleanup apt cache
 RUN rm -rf /var/lib/apt/lists/*

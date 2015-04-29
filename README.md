@@ -14,6 +14,7 @@ A Docker image included with apache and php which can be used for development.
 * Node.js 0.10.36
 * Bower 1.3.12
 * Grunt-cli 0.1.13
+* sfnt2woff
 
 
 Start a new container
