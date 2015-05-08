@@ -4,7 +4,6 @@ Apache PHP DEV Docker image
 A Docker image included with apache and php which can be used for development.
 
 * Apache and PHP (see [yoshz/apache-php](https://registry.hub.docker.com/u/yoshz/apache-php/))
-* Openjdk 7 (required when you use this image as Jenkins slave)
 * Phing 2.10.0
 * Phpunit 4.5.0
 * PHP Code Sniffer 2.2.0 (including standards for Drupal and Symfony2)
@@ -14,7 +13,7 @@ A Docker image included with apache and php which can be used for development.
 * Node.js 0.10.36
 * Bower 1.3.12
 * Grunt-cli 0.1.13
-* sfnt2woff
+* Fontforge & sfnt2woff
 
 
 Start a new container
@@ -39,4 +38,4 @@ The following optional environment variables are available:
 * *GIT_NAME*: GIT username to attach to system user
 * *GIT_EMAIL*: GIT email to attach to system user
 
-The user will be created with sudo rights on apachectl.
+The user will be created with sudo rights.
